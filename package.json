@@ -1,0 +1,38 @@
+{
+  "name": "cheerio_cms",
+  "description": "uses cheerio to parse HTML and manipulate the DOM",
+  "version": "1.0.0",
+  "author": "Michael Kreil <github_contact@michael-kreil.de>",
+  "license": "Unlicense",
+  "files": [
+    "dist/**/*.js",
+    "dist/**/*.d.ts"
+  ],
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "type": "module",
+  "scripts": {
+    "build": "rm -rf dist && tsc -p tsconfig.build.json",
+    "check": "npm run lint && npm run fmt && npm run test && npm run build",
+    "lint": "eslint . --color",
+    "fmt": "prettier --write src",
+    "prepack": "npm run build",
+    "release": "npm run check && npm publish",
+    "test-coverage": "NODE_OPTIONS=--experimental-vm-modules jest --coverage",
+    "test": "NODE_OPTIONS=--experimental-vm-modules jest",
+    "upgrade": "npm upgrade --save"
+  },
+  "dependencies": {
+    "cheerio": "^1.1.0"
+  },
+  "devDependencies": {
+    "eslint": "^9.29.0",
+    "eslint-config-prettier": "^10.1.5",
+    "eslint-plugin-prettier": "^5.5.0",
+    "jest": "^30.0.0",
+    "prettier": "^3.5.3",
+    "ts-jest": "^29.4.0",
+    "typescript": "^5.8.3",
+    "typescript-eslint": "^8.34.1"
+  }
+}
