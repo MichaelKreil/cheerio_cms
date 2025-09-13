@@ -81,17 +81,20 @@ export class Page {
 	public setBaseUrl(baseUrl: string): Page {
 		if (typeof baseUrl !== 'string') throw new TypeError('baseUrl must be a string');
 
-		const upgradeUrl = (attr: string) => {
-			this.$(`[${attr}]`).each((_, element) => {
-				const url = this.$(element).attr(attr);
-				if (url && !url.startsWith('http')) {
-					this.$(element).attr(attr, new URL(url, baseUrl).href);
-				}
+		const updateUrls = (selector: string, attribute: string) => {
+			this.$(selector).each((_, element) => {
+				const url = this.$(element).attr(attribute);
+				if (!url) return;
+				if (url.startsWith('http')) return;
+				this.$(element).attr(attribute, new URL(url, baseUrl).href);
 			});
 		};
 
-		upgradeUrl('href');
-		upgradeUrl('src');
+		updateUrls('[href]', 'href');
+		updateUrls('[src]', 'src');
+		updateUrls('meta[property="og:image"]', 'content');
+		updateUrls('meta[name="twitter:image"]', 'content');
+		updateUrls('meta[name="image"]', 'content');
 
 		return this;
 	}

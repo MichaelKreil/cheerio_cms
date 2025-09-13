@@ -136,22 +136,47 @@ describe('Page', () => {
 	});
 
 	describe('setBaseUrl', () => {
-		it('setBaseUrl upgrades href and src attributes to absolute URLs', () => {
+		it('setBaseUrl upgrades href', () => {
 			const html = new Page(template)
 				.setContent(
 					[
-						'<a href="http://example.com/page">Link</a>',
-						'<img src="https://example.com/image.png">',
-						'<img src="./relative.png">',
-						'<a href="/absolute">absolute</a>',
+						'<a id="1" href="http://example.com/page">Link</a>',
+						'<a id="2" href="relative">relative</a>',
+						'<a id="3" href="/absolute">absolute</a>',
 					].join('\n'),
 				)
 				.setBaseUrl('https://baseurl.com/path/')
 				.render();
-			expect(html).toContain('href="http://example.com/page"');
-			expect(html).toContain('src="https://example.com/image.png"');
-			expect(html).toContain('src="https://baseurl.com/path/relative.png"');
-			expect(html).toContain('href="https://baseurl.com/absolute"');
+			expect(html).toContain('<a id="1" href="http://example.com/page">Link</a>');
+			expect(html).toContain('<a id="2" href="https://baseurl.com/path/relative">relative</a>');
+			expect(html).toContain('<a id="3" href="https://baseurl.com/absolute">absolute</a>');
+		});
+
+		it('setBaseUrl upgrades src attributes', () => {
+			const html = new Page(template)
+				.setContent(
+					['<img id="1" src="https://example.com/image.png">', '<img id="2" src="./relative.png">'].join('\n'),
+				)
+				.setBaseUrl('https://baseurl.com/path/')
+				.render();
+			expect(html).toContain('<img id="1" src="https://example.com/image.png">');
+			expect(html).toContain('<img id="2" src="https://baseurl.com/path/relative.png">');
+		});
+
+		it('setBaseUrl upgrades head attributes', () => {
+			const html = new Page(template)
+				.addHead(
+					[
+						'<meta property="og:image" content="./image.png">',
+						'<meta name="twitter:image" content="/image.png">',
+						'<meta name="image" content="image.png">',
+					].join('\n'),
+				)
+				.setBaseUrl('https://baseurl.com/path/')
+				.render();
+			expect(html).toContain('<meta property="og:image" content="https://baseurl.com/path/image.png">');
+			expect(html).toContain('<meta name="twitter:image" content="https://baseurl.com/image.png">');
+			expect(html).toContain('<meta name="image" content="https://baseurl.com/path/image.png">');
 		});
 
 		it('setBaseUrl throws if baseUrl is not a string', () => {
