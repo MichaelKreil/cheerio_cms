@@ -1,7 +1,7 @@
 {
   "name": "cheerio_cms",
   "description": "uses cheerio to parse HTML and manipulate the DOM",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "author": "Michael Kreil <github_contact@michael-kreil.de>",
   "license": "Unlicense",
   "files": [
