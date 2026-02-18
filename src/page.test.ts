@@ -1,5 +1,5 @@
 import { MenuEntry, Page } from './page.js';
-import { beforeEach, describe, expect, it } from '@jest/globals';
+import { beforeEach, describe, expect, it } from 'vitest';
 import template from './template.js';
 
 describe('Page', () => {
