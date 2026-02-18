@@ -13,9 +13,9 @@
   "type": "module",
   "scripts": {
     "build": "rm -rf dist && tsc -p tsconfig.build.json",
-    "check": "npm run lint && npm run fmt && npm run test && npm run build",
+    "check": "npm run lint && npm run format && npm run test && npm run build",
     "lint": "eslint . --color",
-    "fmt": "prettier --write src",
+    "format": "prettier --write src",
     "prepack": "npm run build",
     "release": "npm run check && npm publish",
     "test-coverage": "vitest run --coverage",
