@@ -8,8 +8,10 @@ export default [
 	...ts.configs.recommended,
 	{
 		ignores: [
-			'**/dist/**/*.*',
-			'**/coverage/**/*.*',
+			'coverage/**',
+			'dist/**',
+			'docs/**',
+			'node_modules/**',
 		]
 	},
 	{
