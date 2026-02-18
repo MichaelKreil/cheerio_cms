@@ -1,5 +1,5 @@
 import { MenuEntry, Page } from './page.js';
-import { beforeEach, describe, expect, it } from 'vitest';
+import { beforeEach, describe, expect, it, vi } from 'vitest';
 import template from './template.js';
 
 describe('Page', () => {
@@ -193,9 +193,20 @@ describe('Page', () => {
 		});
 
 		it('fromURL creates a Page instance from a URL (mocked)', async () => {
+			const mockFetch = vi.fn().mockResolvedValue({
+				text: () =>
+					Promise.resolve(
+						'<html><head><title>VersaTiles</title></head><body><main>VersaTiles</main></body></html>',
+					),
+			});
+			vi.stubGlobal('fetch', mockFetch);
+
 			const page = await Page.fromURL('https://versatiles.org');
+			expect(mockFetch).toHaveBeenCalledWith('https://versatiles.org');
 			expect(page).toBeInstanceOf(Page);
 			expect(page.render()).toContain('VersaTiles');
+
+			vi.restoreAllMocks();
 		});
 
 		it('fromURL throws if url is not a string', async () => {
