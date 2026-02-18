@@ -19,6 +19,29 @@ const html = new Page(template)
 	.render();
 ```
 
+## Dependency Graph
+
+<!--- This chapter is generated automatically --->
+
+```mermaid
+---
+config:
+  layout: elk
+---
+flowchart TB
+
+subgraph 0["src"]
+1["index.ts"]
+2["page.ts"]
+3["template.ts"]
+end
+1-->2
+1-->3
+
+class 0 subgraphs;
+classDef subgraphs fill-opacity:0.1, fill:#888, color:#888, stroke:#888;
+```
+
 ## License
 
 Unlicensed
