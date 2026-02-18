@@ -11,6 +11,29 @@
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "type": "module",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
+    }
+  },
+  "engines": {
+    "node": ">=20"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/MichaelKreil/cheerio_cms.git"
+  },
+  "bugs": {
+    "url": "https://github.com/MichaelKreil/cheerio_cms/issues"
+  },
+  "homepage": "https://github.com/MichaelKreil/cheerio_cms#readme",
+  "keywords": [
+    "cheerio",
+    "html",
+    "dom",
+    "cms"
+  ],
   "scripts": {
     "build": "rm -rf dist && tsc -p tsconfig.build.json",
     "check": "npm run lint && npm run format && npm run test && npm run build",
